@@ -27,6 +27,10 @@ abstract class BaseController extends Controller
 
     // protected $session;
 
+    protected $currentUser = null;
+    protected $auth = null;
+    protected $data = [];
+
     /**
      * @return void
      */
@@ -41,5 +45,11 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
         // $this->session = service('session');
+
+        $this->auth = new \IonAuth\Libraries\IonAuth();
+        $this->currentUser = $this->auth->user()->row();
+
+        $this->data['auth'] = $this->auth;
+        $this->data['currentUser'] =  $this->currentUser;
     }
 }

@@ -12,3 +12,5 @@ $routes->group('auth', ['namespace' => 'IonAuth\Controllers'], function ($routes
     $routes->get('logout', 'Auth::logout');
     $routes->add('forgot_password', 'Auth::forgot_password');
 });
+
+$routes->get('admin/dashboard', '\App\Controllers\Admin\Dashboard::index');

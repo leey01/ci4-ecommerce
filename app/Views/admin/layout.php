@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="<?= base_url() ?>admin/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>admin/plugins/summernote/summernote-bs4.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?= base_url() ?>admin/css/custom.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -90,6 +92,11 @@
     <script src="<?= base_url() ?>admin/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_url() ?>admin/js/demo.js"></script>
+    <script>
+        $(".delete").on("submit", function() {
+            return confirm("Do you want to remove this?");
+        });
+    </script>
 </body>
 
 </html>

@@ -13,9 +13,9 @@ $routes->group('auth', ['namespace' => 'IonAuth\Controllers'], function ($routes
     $routes->add('forgot_password', 'Auth::forgot_password');
 });
 
-$routes->get('admin/dashboard', '\App\Controllers\Admin\Dashboard::index');
+$routes->group('admin', ['filter' => 'admin-auth:admin,operator'], function ($routes) {
+    $routes->get('dashboard', 'Admin\Dashboard::index');
 
-$routes->group('admin', function ($routes) {
     $routes->get('categories', 'Admin\Categories::index');
     $routes->get('categories/(:num)', 'Admin\Categories::index/$1');
     $routes->post('categories', 'Admin\Categories::store');

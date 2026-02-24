@@ -31,6 +31,7 @@ class Categories extends BaseController
 
 
         $this->getCategories();
+        $this->getParentOptions($categoryId);
 
         return view('admin/categories/index', $this->data);
     }
@@ -41,36 +42,47 @@ class Categories extends BaseController
         $this->data['pager'] = $this->categoryModel->pager;
     }
 
+    private function getParentOptions($exceptCategory = null)
+    {
+        $this->data['parentOptions'] = $this->categoryModel->getParentOptions($exceptCategory);
+    }
+
     public function store()
     {
         $params = [
-            'name' => $this->request->getVar('name')
+            'name' => $this->request->getVar('name'),
+            'parent_id' => $this->request->getVar('parent_id')
         ];
-        $params['slug'] = strtolower(url_title($params['name']));
+
+        $this->data['selectedParentId'] = $params['parent_id'];
 
         if ($this->categoryModel->save($params)) {
             $this->session->setFlashdata('success', 'Category has been saved.');
             return redirect()->to('/admin/categories');
         } else {
             $this->getCategories();
+            $this->getParentOptions();
             $this->data['errors'] = $this->categoryModel->errors();
             return view('admin/categories/index', $this->data);
         }
     }
 
-    public function Update($id)
+    public function update($id)
     {
         $params = [
             'id' => $id,
-            'name' => $this->request->getVar('name')
+            'name' => $this->request->getVar('name'),
+            'parent_id' => $this->request->getVar('parent_id')
         ];
-        $params['slug'] = strtolower(url_title($params['name']));
+
+        $this->data['selectedParentId'] = $params['parent_id'];
 
         if ($this->categoryModel->save($params)) {
             $this->session->setFlashdata('success', 'Category has been updated.');
             return redirect()->to('/admin/categories');
         } else {
             $this->getCategories();
+            $this->getParentOptions();
             $this->data['errors'] = $this->categoryModel->errors();
             return view('admin/categories/index', $this->data);
         }

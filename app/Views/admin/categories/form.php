@@ -26,6 +26,7 @@
                         $selected = $selectedParentId;
                     }
                     ?>
+                    <?= selectMultiLevel('parent_id', $parentOptions, ['class' => 'form-control', 'placeholder' => '-- Choose Category --', 'selected' => $selected]) ?>
                 </div>
             </div>
             <!-- /.card-body -->
